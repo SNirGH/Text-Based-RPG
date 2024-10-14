@@ -1,15 +1,15 @@
 #include <iostream>
 #include <conio.h>
 
-#include "Player.hpp"
-#include "Mage.hpp"
-#include "Assassin.hpp"
-#include "Warrior.hpp"
-#include "Inventory.hpp"
-#include "Item.hpp"
-#include "Weapon.hpp"
-#include "Potion.hpp"
-#include "StatusEffects.hpp"
+#include "Player/Player.hpp"
+#include "Player/Mage.hpp"
+#include "Player/Assassin.hpp"
+#include "Player/Warrior.hpp"
+#include "Inventory/Inventory.hpp"
+#include "Inventory/Item.hpp"
+#include "Weapons/Weapon.hpp"
+#include "Potions/Potion.hpp"
+#include "Status Effects/StatusEffects.hpp"
 
 int main() {
 	/*char choice;

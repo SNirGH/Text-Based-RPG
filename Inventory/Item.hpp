@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StatusEffects.hpp"
+#include "../Status Effects/StatusEffects.hpp"
 
 #include <unordered_map>
 #include <string>

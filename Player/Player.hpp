@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "StatusEffects.hpp"
+#include "../Status Effects/StatusEffects.hpp"
 
 enum class Type : uint8_t { Assassin, Mage, Warrior };
 

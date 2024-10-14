@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "Item.hpp"
-#include "StatusEffects.hpp"
+#include "../Inventory/Item.hpp"
+#include "../Status Effects/StatusEffects.hpp"
 
 class Potion : public Item {
 public:

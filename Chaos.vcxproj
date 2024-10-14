@@ -129,21 +129,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assassin.hpp" />
-    <ClInclude Include="Game.hpp" />
-    <ClInclude Include="Inventory.hpp" />
-    <ClInclude Include="Item.hpp" />
-    <ClInclude Include="Mage.hpp" />
-    <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Potion.hpp" />
-    <ClInclude Include="StatusEffects.hpp" />
-    <ClInclude Include="Warrior.hpp" />
-    <ClInclude Include="Weapon.hpp" />
+    <ClInclude Include="Player\Assassin.hpp" />
+    <ClInclude Include="Game\Game.hpp" />
+    <ClInclude Include="Inventory\Inventory.hpp" />
+    <ClInclude Include="Inventory\Item.hpp" />
+    <ClInclude Include="Player\Mage.hpp" />
+    <ClInclude Include="Player\Player.hpp" />
+    <ClInclude Include="Potions\Potion.hpp" />
+    <ClInclude Include="Status Effects\StatusEffects.hpp" />
+    <ClInclude Include="Player\Warrior.hpp" />
+    <ClInclude Include="Weapons\Weapon.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />

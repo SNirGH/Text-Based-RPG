@@ -13,48 +13,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Inventory">
+      <UniqueIdentifier>{bea1b530-7f3f-45de-bdd7-6eff4e136a91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.hpp">
+    <ClInclude Include="Player\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StatusEffects.hpp">
+    <ClInclude Include="Status Effects\StatusEffects.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mage.hpp">
+    <ClInclude Include="Player\Mage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assassin.hpp">
+    <ClInclude Include="Player\Assassin.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Warrior.hpp">
+    <ClInclude Include="Player\Warrior.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Inventory.hpp">
+    <ClInclude Include="Inventory\Item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Item.hpp">
+    <ClInclude Include="Game\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Weapons\Weapon.hpp">
+      <Filter>Header Files\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="Potion.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Potions\Potion.hpp">
+      <Filter>Header Files\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="Game.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Inventory\Inventory.hpp">
+      <Filter>Header Files\Inventory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
