@@ -1,0 +1,4 @@
+[] Implement the Mob Class
+[] Implement the Attack Class
+[] Implement the Chest Class
+[] Finish remaining class implementations
