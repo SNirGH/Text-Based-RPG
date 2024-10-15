@@ -2,11 +2,13 @@
 
 std::string Player::getType() const {
 	switch (type) {
-	case Type::Assassin:
+	case PlayerType::Assassin:
 		return "Assassin";
-	case Type::Mage:
+	case PlayerType::Mage:
 		return "Mage";
-	case Type::Warrior:
+	case PlayerType::Warrior:
 		return "Warrior";
+	default:
+		return "Error";
 	}
 }

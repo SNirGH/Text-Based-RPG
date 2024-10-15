@@ -9,7 +9,7 @@ enum class AssassinMoveset : uint8_t {
 
 class Assassin : public Player {
 public:
-	Assassin() : Player(15, 5, 0, 1, Type::Assassin) {}
+	Assassin() : Player(15, 5, 0, 1, PlayerType::Assassin) {}
 
 	void printDescription() const override {
 		std::println("This is a assassin.");

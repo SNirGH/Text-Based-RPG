@@ -1,39 +1,24 @@
 #pragma once
 
-#include "../Status Effects/StatusEffects.hpp"
-
 #include <unordered_map>
 #include <string>
+
+#include "../Status Effects/StatusEffects.hpp"
 
 enum class ItemType {
 	Weapon,
 	Potion
 };
 
-enum class PotionEffect {
-	Heal,
-	RestoreMana
-};
-
 class Item {
 public:
-	Item(const std::string& name, const std::string& description, uint8_t baseDamage, Effects debuff, ItemType itemType)
-		: name(name), description(description), baseDamage(baseDamage),
-		  currentDamage(baseDamage), debuff(debuff), itemType(itemType) {}
-	
-	Item(const std::string& name, const std::string& description, float percent, uint8_t amount, PotionEffect pEffect, ItemType itemType)
-		: name(name), description(description), baseDamage(baseDamage),
-		  currentDamage(baseDamage), debuff(debuff), itemType(itemType) {}
+	Item(const std::string& name, const std::string& description, ItemType itemType)
+		: name(name), description(description), itemType(itemType) {}
 
 	std::string getName() const { return name; }
-	ItemType getType() const { return itemType; }
-
+	std::string getDescription() const { return description; }
+	ItemType getItemType() const { return itemType; }
 protected:
 	std::string name, description;
-	uint8_t baseDamage, currentDamage;
-	float percent;
-	uint8_t amount;
-	PotionEffect pEffect;
-	Effects debuff;
 	ItemType itemType;
 };

@@ -1,15 +1,8 @@
 #include <iostream>
 #include <conio.h>
 
-#include "Player/Player.hpp"
-#include "Player/Mage.hpp"
-#include "Player/Assassin.hpp"
-#include "Player/Warrior.hpp"
 #include "Inventory/Inventory.hpp"
-#include "Inventory/Item.hpp"
 #include "Weapons/Weapon.hpp"
-#include "Potions/Potion.hpp"
-#include "Status Effects/StatusEffects.hpp"
 
 int main() {
 	/*char choice;
@@ -47,40 +40,11 @@ int main() {
 		30,
 		Effects::Poisoned
 	);
-	std::shared_ptr<Item> wand = std::make_shared<Weapon>(
-		"Wand",
-		"This is a Wand",
-		25,
-		Effects::Poisoned
-	);
-	std::shared_ptr<Item> axe = std::make_shared<Weapon>(
-		"Axe",
-		"This is a axe",
-		10,
-		Effects::Poisoned
-	);
-	
-	std::shared_ptr<Item> healing = std::make_shared<Potion>(
-		"Healing Potion",
-		"This will heal you by 25%",
-		(float)25.0,
-		2,
-		PotionEffect::Heal
-	);
-	
-	std::shared_ptr<Item> manapotion = std::make_shared<Potion>(
-		"Mana Restoring Potion",
-		"This will restore you mana by 25%",
-		(float)25.0,
-		2,
-		PotionEffect::RestoreMana
-	);
+
+	dagger->getDescription();
+	dagger->getItemType();
 
 	inventory.addToInventory(ItemType::Weapon, dagger);
-	inventory.addToInventory(ItemType::Weapon, wand);
-	inventory.addToInventory(ItemType::Weapon, axe);
-	inventory.addToInventory(ItemType::Potion, healing);
-	inventory.addToInventory(ItemType::Potion, manapotion);
 
 	inventory.listItems();
 
