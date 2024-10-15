@@ -32,21 +32,23 @@ int main() {
 		std::println("");
 	} while ((choice < 49 or choice > 51) or choice != 'q');*/
 
-	Inventory inventory;
+	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
 
-	std::shared_ptr<Item> dagger = std::make_shared<Weapon>(
+	std::unique_ptr<Item> dagger = std::make_unique<Weapon>(
 		"Dagger",
 		"This is a Dagger",
 		30,
 		Effects::Poisoned
 	);
 
-	dagger->getDescription();
-	dagger->getItemType();
+	std::println("{}", dagger->getName());
+	std::println("{}", dagger->getDescription());
+	std::println("{}", (uint8_t)dagger->getItemType());
+	
 
-	inventory.addToInventory(ItemType::Weapon, dagger);
+	inventory->addToInventory(ItemType::Weapon, std::move(dagger));
 
-	inventory.listItems();
+	inventory->listItems();
 
 	(void)_getch();
 }

@@ -7,14 +7,14 @@
 
 class Inventory {
 public: 
-	void addToInventory(ItemType itemType, std::shared_ptr<Item> item) {
-		items[itemType].emplace_back(item);
+	void addToInventory(ItemType itemType, std::unique_ptr<Item> item) {
+		items[itemType].emplace_back(std::move(item));
 	}
 
-	void removeFromInventory(ItemType itemType, std::shared_ptr<Item> item) {
-		std::vector<std::shared_ptr<Item>>& itemList = items[itemType];
+	void removeFromInventory(ItemType itemType, std::unique_ptr<Item> item) {
+		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
 
-		std::vector<std::shared_ptr<Item>>::iterator it = std::find(itemList.begin(), itemList.end(), item);
+		std::vector<std::unique_ptr<Item>>::iterator it = std::find(itemList.begin(), itemList.end(), item);
 
 		if (it != itemList.end())
 			itemList.erase(it);
@@ -29,5 +29,5 @@ public:
 		}
 	}
 private:
-	std::unordered_map<ItemType, std::vector<std::shared_ptr<Item>>> items;
+	std::unordered_map<ItemType, std::vector<std::unique_ptr<Item>>> items;
 };
