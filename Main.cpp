@@ -1,8 +1,9 @@
 #include <iostream>
 #include <conio.h>
 
-#include "Inventory/Inventory.hpp"
+#include "Player/Mage.hpp"
 #include "Weapons/Dagger.hpp"
+#include "Potions/HealthPotion.hpp"
 
 int main() {
 	/*char choice;
@@ -32,7 +33,7 @@ int main() {
 		std::println("");
 	} while ((choice < 49 or choice > 51) or choice != 'q');*/
 
-	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
+	std::unique_ptr<Player> player = std::make_unique<Mage>();
 
 	std::unique_ptr<Weapon> dagger = std::make_unique<Dagger>(
 		"Fire Dagger",
@@ -40,12 +41,23 @@ int main() {
 		25.0F,
 		Effects::Fire
 	);
+	
+	std::unique_ptr<Potion> health = std::make_unique<HealthPotion>(
+		"Health Potion",
+		"This will heal you.",
+		25.0F,
+		5
+	);
 
 	dagger->printWeaponStats();
 
-	std::println("\n-- Inventory --");
-	inventory->addToInventory(std::move(dagger));
-	inventory->listItems();
+	std::println("\n-- Player Inventory --");
+	player->addItemToInventory(std::move(dagger));
+	player->addItemToInventory(std::move(health));
+	player->listItemsInInventory();
+
+
+	
 
 	(void)_getch();
 }

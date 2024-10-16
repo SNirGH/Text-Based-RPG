@@ -135,12 +135,14 @@
     <ClCompile Include="Weapons\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttackStrategy\AttackStrategy.hpp" />
     <ClInclude Include="Player\Assassin.hpp" />
     <ClInclude Include="Game\Game.hpp" />
     <ClInclude Include="Inventory\Inventory.hpp" />
     <ClInclude Include="Inventory\Item.hpp" />
     <ClInclude Include="Player\Mage.hpp" />
     <ClInclude Include="Player\Player.hpp" />
+    <ClInclude Include="Potions\HealthPotion.hpp" />
     <ClInclude Include="Potions\Potion.hpp" />
     <ClInclude Include="Status Effects\StatusEffects.hpp" />
     <ClInclude Include="Player\Warrior.hpp" />

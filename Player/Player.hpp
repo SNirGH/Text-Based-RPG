@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+
+#include "../Inventory/Inventory.hpp"
 #include "../Status Effects/StatusEffects.hpp"
 
 enum class PlayerType : uint8_t { Assassin, Mage, Warrior };
@@ -31,8 +33,19 @@ public:
 		std::println("XP: {}", currentXP);
 		std::println("Level: {}", level);
 	}
+
+	void addItemToInventory(std::unique_ptr<Item> item) {
+		inventory->addToInventory(std::move(item));
+	}
+
+	void listItemsInInventory() const {
+		inventory->listItems();
+	}
+
 protected:
 	uint8_t currentHP, maxHP, currentMP, maxMP, currentXP, maxXP, level;
-	const PlayerType type;
+	PlayerType type;
+
+	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
 	std::unique_ptr<StatusEffects> debuffs = std::make_unique<StatusEffects>();
 };

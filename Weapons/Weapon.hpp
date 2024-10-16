@@ -28,7 +28,7 @@ public:
 	}
 
 	void printWeaponStats() {
-		std::println("Name: {}", name);
+		std::println("Name: {}", this->name);
 		std::println("Description: {}", this->description);
 		std::println("Base Damage: {}", this->baseDamage);
 		std::println("Weapon Type: {}", this->GetWeaponType());
