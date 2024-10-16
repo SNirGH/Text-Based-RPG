@@ -50,6 +50,7 @@ int main() {
 	);
 
 	dagger->printWeaponStats();
+	player->printStats();
 
 	std::println("\n-- Player Inventory --");
 	player->addItemToInventory(std::move(dagger));

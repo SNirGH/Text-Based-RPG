@@ -15,12 +15,6 @@ public:
 
 	virtual void printDescription() const = 0;
 
-	uint8_t getHealth() const { return currentHP; }
-	void setHealth(int hp) { currentHP = hp; }
-
-	uint8_t getMana() const { return currentMP; }
-	void setMana(int mp) { currentMP = mp; }
-	
 	uint8_t getLevel() const { return level; }
 	void setLevel(int lvl) { level = lvl; }
 
@@ -40,6 +34,20 @@ public:
 
 	void listItemsInInventory() const {
 		inventory->listItems();
+	}
+
+	void Restore(float percent, uint8_t& current, uint8_t max) {
+		current = std::min(static_cast<int>(current + (current * percent)), static_cast<int>(max));
+	}
+	void RestoreHealth(float percent) {
+		Restore(percent, currentHP, maxHP);
+	}
+	void RestoreMana(float percent) {
+		Restore(percent, currentMP, maxMP);
+	}
+
+	void TakeDamage(uint8_t amount) {
+		currentHP = (currentHP >= amount) ? (currentHP - amount) : 0;
 	}
 
 protected:
