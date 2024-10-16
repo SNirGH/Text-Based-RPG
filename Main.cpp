@@ -47,7 +47,7 @@ int main() {
 		"This will heal you.",
 		25.0F,
 		5,
-		player.get()
+		*player
 	);
 
 	player->printStats();
@@ -56,6 +56,8 @@ int main() {
 	player->printStats();
 
 	health->Use();
+	player->printStats();
+
 
 	(void)_getch();
 }
