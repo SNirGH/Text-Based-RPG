@@ -7,24 +7,28 @@
 
 class Inventory {
 public: 
-	void addToInventory(ItemType itemType, std::unique_ptr<Item> item) {
-		items[itemType].emplace_back(std::move(item));
+	void addToInventory(std::unique_ptr<Item> item) {
+		items[item->getItemType()].emplace_back(std::move(item));
 	}
 
-	void removeFromInventory(ItemType itemType, std::unique_ptr<Item> item) {
+	void removeFromInventory(ItemType itemType, const std::string& itemName) {
 		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
 
-		std::vector<std::unique_ptr<Item>>::iterator it = std::find(itemList.begin(), itemList.end(), item);
+		std::vector<std::unique_ptr<Item>>::iterator it = std::remove_if(itemList.begin(), itemList.end(),
+			[&itemName](const std::unique_ptr<Item>& item) {
+				return item->getName() == itemName;
+			});
 
-		if (it != itemList.end())
-			itemList.erase(it);
+		if (it != itemList.end()) {
+			itemList.erase(it, itemList.end());
+		}
 	}
 
 	void listItems() const {
 		for (const auto& [itemType, itemList] : items) {
 			std::println("{}", (itemType == ItemType::Weapon ? "Weapons:" : "Potions:"));
 			for (const auto& item : itemList) {
-				std::println(" - {}", item->getName());
+				std::println(" * {}", item->getName());
 			}
 		}
 	}

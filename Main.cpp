@@ -2,7 +2,7 @@
 #include <conio.h>
 
 #include "Inventory/Inventory.hpp"
-#include "Weapons/Weapon.hpp"
+#include "Weapons/Dagger.hpp"
 
 int main() {
 	/*char choice;
@@ -34,20 +34,17 @@ int main() {
 
 	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
 
-	std::unique_ptr<Item> dagger = std::make_unique<Weapon>(
-		"Dagger",
-		"This is a Dagger",
-		30,
-		Effects::Poisoned
+	std::unique_ptr<Weapon> dagger = std::make_unique<Dagger>(
+		"Fire Dagger",
+		"A dagger created from a volcano.",
+		25.0F,
+		Effects::Fire
 	);
 
-	std::println("{}", dagger->getName());
-	std::println("{}", dagger->getDescription());
-	std::println("{}", (uint8_t)dagger->getItemType());
-	
+	dagger->printWeaponStats();
 
-	inventory->addToInventory(ItemType::Weapon, std::move(dagger));
-
+	std::println("\n-- Inventory --");
+	inventory->addToInventory(std::move(dagger));
 	inventory->listItems();
 
 	(void)_getch();

@@ -8,7 +8,8 @@ enum class Effects : uint8_t {
 	Fire     = 1 << 0,
 	Poisoned = 1 << 1,
 	Stunned  = 1 << 2,
-	Frozen   = 1 << 3
+	Frozen   = 1 << 3,
+	Max
 };
 
 class StatusEffects {

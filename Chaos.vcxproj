@@ -144,6 +144,7 @@
     <ClInclude Include="Potions\Potion.hpp" />
     <ClInclude Include="Status Effects\StatusEffects.hpp" />
     <ClInclude Include="Player\Warrior.hpp" />
+    <ClInclude Include="Weapons\Dagger.hpp" />
     <ClInclude Include="Weapons\Weapon.hpp" />
   </ItemGroup>
   <ItemGroup>

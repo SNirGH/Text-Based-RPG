@@ -62,6 +62,9 @@
     <ClInclude Include="Inventory\Inventory.hpp">
       <Filter>Header Files\Inventory</Filter>
     </ClInclude>
+    <ClInclude Include="Weapons\Dagger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt">
