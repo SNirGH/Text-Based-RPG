@@ -49,16 +49,9 @@ int main() {
 		5
 	);
 
-	dagger->printWeaponStats();
 	player->printStats();
 
-	std::println("\n-- Player Inventory --");
-	player->addItemToInventory(std::move(dagger));
-	player->addItemToInventory(std::move(health));
-	player->listItemsInInventory();
-
-
-	
+	player->TakeDamage(5);
 
 	(void)_getch();
 }

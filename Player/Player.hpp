@@ -50,6 +50,10 @@ public:
 		currentHP = (currentHP >= amount) ? (currentHP - amount) : 0;
 	}
 
+	void ConsumeMana(uint8_t amount) {
+		currentMP = (currentMP >= amount) ? (currentMP - amount) : 0;
+	}
+
 protected:
 	uint8_t currentHP, maxHP, currentMP, maxMP, currentXP, maxXP, level;
 	PlayerType type;
