@@ -16,7 +16,7 @@ public:
 		: Item(name, description, ItemType::Potion),
 		percent(percent), amount(amount), potionEffect(pEffect) {}
 
-	
+	virtual void Use() = 0;
 protected:
 	float percent;
 	uint8_t amount;

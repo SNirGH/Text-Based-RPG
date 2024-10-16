@@ -46,12 +46,16 @@ int main() {
 		"Health Potion",
 		"This will heal you.",
 		25.0F,
-		5
+		5,
+		player.get()
 	);
 
 	player->printStats();
-
+	
 	player->TakeDamage(5);
+	player->printStats();
+
+	health->Use();
 
 	(void)_getch();
 }
