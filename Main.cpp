@@ -34,6 +34,7 @@ int main() {
 	} while ((choice < 49 or choice > 51) or choice != 'q');*/
 
 	std::unique_ptr<Player> player = std::make_unique<Mage>();
+	std::cout << player.get() << std::endl;
 
 	std::unique_ptr<Weapon> dagger = std::make_unique<Dagger>(
 		"Fire Dagger",
@@ -42,10 +43,11 @@ int main() {
 		Effects::Fire
 	);
 	
+
 	std::unique_ptr<Potion> health = std::make_unique<HealthPotion>(
 		"Health Potion",
 		"This will heal you.",
-		25.0F,
+		0.25F,
 		5,
 		*player
 	);
