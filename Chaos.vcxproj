@@ -143,6 +143,7 @@
     <ClInclude Include="Player\Mage.hpp" />
     <ClInclude Include="Player\Player.hpp" />
     <ClInclude Include="Potions\HealthPotion.hpp" />
+    <ClInclude Include="Potions\ManaPotion.hpp" />
     <ClInclude Include="Potions\Potion.hpp" />
     <ClInclude Include="Status Effects\StatusEffects.hpp" />
     <ClInclude Include="Player\Warrior.hpp" />

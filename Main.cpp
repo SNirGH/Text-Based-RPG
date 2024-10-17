@@ -3,6 +3,7 @@
 
 #include "Player/Mage.hpp"
 #include "Weapons/Dagger.hpp"
+#include "Potions/ManaPotion.hpp"
 #include "Potions/HealthPotion.hpp"
 
 int main() {
@@ -44,20 +45,30 @@ int main() {
 	);
 	
 
+	std::unique_ptr<Potion> mana = std::make_unique<ManaPotion>(
+		"Mana Potion",
+		"This will restore your mana.",
+		0.25F,
+		2,
+		*player
+	);
+	
 	std::unique_ptr<Potion> health = std::make_unique<HealthPotion>(
 		"Health Potion",
-		"This will heal you.",
+		"This will restore your health.",
 		0.25F,
-		5,
+		2,
 		*player
 	);
 
 	player->printStats();
-	
-	player->TakeDamage(5);
-	player->printStats();
 
-	health->Use();
+	player->TakeDamage(player->getHealth() * 0.25F);
+	player->printStats();
+	player->addItemToInventory(std::move(health));
+
+
+	std::println("{}", player->findItemInInventory(ItemType::Potion, "Health Potion"));
 	player->printStats();
 
 

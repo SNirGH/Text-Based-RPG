@@ -11,6 +11,18 @@ public:
 		items[item->getItemType()].emplace_back(std::move(item));
 	}
 
+	bool findItemInInventory(ItemType itemType, const std::string& itemName) {
+		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
+		
+		for (const std::unique_ptr<Item>& item : itemList) {
+			std::println("Checking item: {}", item->getName());
+			if (item->getName() == itemName)
+				return true;
+		}
+
+		return false;
+	}
+
 	void removeFromInventory(ItemType itemType, const std::string& itemName) {
 		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
 
@@ -27,7 +39,7 @@ public:
 	void listItems() const {
 		for (const auto& [itemType, itemList] : items) {
 			std::println("{}", (itemType == ItemType::Weapon ? "Weapons:" : "Potions:"));
-			for (const auto& item : itemList) {
+			for (const std::unique_ptr<Item>& item : itemList) {
 				std::println(" * {}", item->getName());
 			}
 		}

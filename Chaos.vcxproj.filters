@@ -71,6 +71,9 @@
     <ClInclude Include="Potions\HealthPotion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Potions\ManaPotion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt">

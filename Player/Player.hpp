@@ -15,8 +15,10 @@ public:
 
 	virtual void printDescription() const = 0;
 
+	uint8_t getHealth() const { return currentHP; }
+	float getMana() const { return currentMP; }
 	uint8_t getLevel() const { return level; }
-	void setLevel(int lvl) { level = lvl; }
+	void LevelUp() { ++level; }
 
 	std::string getType() const;
 
@@ -32,12 +34,22 @@ public:
 		inventory->addToInventory(std::move(item));
 	}
 
+	bool findItemInInventory(ItemType itemType, const std::string& itemName) {
+		return inventory->findItemInInventory(itemType, itemName);
+	}
+
+	void removeItemFromInventory(ItemType itemType, const std::string& itemName) {
+		inventory->removeFromInventory(itemType, itemName);
+	}
+
 	void listItemsInInventory() const {
 		inventory->listItems();
 	}
 
-	void Restore(float percent, uint8_t& current, uint8_t max) {
-		current = std::min(static_cast<int>(current + (current * percent)), static_cast<int>(max));
+	template<class T>
+		requires std::is_arithmetic<T>::value
+	void Restore(float percent, T& current, T max) {
+		current = std::min<T>(current + (max * percent), max);
 	}
 	void RestoreHealth(float percent) {
 		Restore(percent, currentHP, maxHP);
@@ -55,7 +67,8 @@ public:
 	}
 
 protected:
-	uint8_t currentHP, maxHP, currentMP, maxMP, currentXP, maxXP, level;
+	uint8_t currentHP, maxHP, currentXP, maxXP, level;
+	float currentMP, maxMP;
 	PlayerType type;
 
 	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
