@@ -66,11 +66,10 @@ int main() {
 	player->TakeDamage(player->getHealth() * 0.25F);
 	player->printStats();
 	player->addItemToInventory(std::move(health));
+	player->addItemToInventory(std::move(dagger));
+	player->addItemToInventory(std::move(mana));
 
-
-	std::println("{}", player->findItemInInventory(ItemType::Potion, "Health Potion"));
 	player->printStats();
-
 
 	(void)_getch();
 }

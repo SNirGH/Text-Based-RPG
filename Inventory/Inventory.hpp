@@ -2,48 +2,30 @@
 
 #include <unordered_map>
 #include <vector>
+#include <iostream>
 
 #include "Item.hpp"
 
 class Inventory {
 public: 
 	void addToInventory(std::unique_ptr<Item> item) {
-		items[item->getItemType()].emplace_back(std::move(item));
+		items[item->getName()] = std::move(item);
 	}
 
-	bool findItemInInventory(ItemType itemType, const std::string& itemName) {
-		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
-		
-		for (const std::unique_ptr<Item>& item : itemList) {
-			std::println("Checking item: {}", item->getName());
-			if (item->getName() == itemName)
-				return true;
-		}
-
-		return false;
+	bool findItemInInventory(const std::string& itemName) {
+		return items.find(itemName) != items.end();
 	}
 
-	void removeFromInventory(ItemType itemType, const std::string& itemName) {
-		std::vector<std::unique_ptr<Item>>& itemList = items[itemType];
+	void removeFromInventory(const std::string& itemName) {
+		auto item = items.find(itemName);
 
-		std::vector<std::unique_ptr<Item>>::iterator it = std::remove_if(itemList.begin(), itemList.end(),
-			[&itemName](const std::unique_ptr<Item>& item) {
-				return item->getName() == itemName;
-			});
-
-		if (it != itemList.end()) {
-			itemList.erase(it, itemList.end());
-		}
+		if (item != items.end() and item->second)
+			items.erase(item);
 	}
 
-	void listItems() const {
-		for (const auto& [itemType, itemList] : items) {
-			std::println("{}", (itemType == ItemType::Weapon ? "Weapons:" : "Potions:"));
-			for (const std::unique_ptr<Item>& item : itemList) {
-				std::println(" * {}", item->getName());
-			}
-		}
-	}
+    void listItems() const {
+        
+    }
 private:
-	std::unordered_map<ItemType, std::vector<std::unique_ptr<Item>>> items;
+	std::unordered_map<std::string, std::unique_ptr<Item>> items;
 };

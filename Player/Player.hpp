@@ -34,12 +34,12 @@ public:
 		inventory->addToInventory(std::move(item));
 	}
 
-	bool findItemInInventory(ItemType itemType, const std::string& itemName) {
-		return inventory->findItemInInventory(itemType, itemName);
+	bool findItemInInventory(const std::string& itemName) {
+		return inventory->findItemInInventory(itemName);
 	}
 
-	void removeItemFromInventory(ItemType itemType, const std::string& itemName) {
-		inventory->removeFromInventory(itemType, itemName);
+	void removeItemFromInventory(const std::string& itemName) {
+		inventory->removeFromInventory(itemName);
 	}
 
 	void listItemsInInventory() const {
@@ -65,6 +65,8 @@ public:
 	void ConsumeMana(uint8_t amount) {
 		currentMP = (currentMP >= amount) ? (currentMP - amount) : 0;
 	}
+
+	virtual ~Player() = default;
 
 protected:
 	uint8_t currentHP, maxHP, currentXP, maxXP, level;

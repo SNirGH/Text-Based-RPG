@@ -17,7 +17,17 @@ public:
 
 	std::string getName() const { return name; }
 	std::string getDescription() const { return description; }
+	std::string getItemTypeName() const {
+		switch (itemType) {
+		case ItemType::Weapon:
+			return "Weapon";
+		case ItemType::Potion:
+			return "Potion";
+		}
+	}
 	ItemType getItemType() const { return itemType; }
+
+	virtual ~Item() = default;
 protected:
 	std::string name, description;
 	ItemType itemType;

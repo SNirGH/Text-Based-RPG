@@ -9,14 +9,14 @@ public:
 		: Potion(name, description, percent, amount, PotionEffect::Health), player(player) {}
 
 	void Use() override {
-		if (!player.findItemInInventory(ItemType::Potion, name)) {
+		if (!player.findItemInInventory(name)) {
 			std::println("You have no more Health Potions");
 			return;
 		}
 		player.RestoreHealth(percent);
 		amount -= 1;
 		if (amount <= 0)
-			player.removeItemFromInventory(ItemType::Potion, name);
+			player.removeItemFromInventory(name);
 	}
 
 private:
