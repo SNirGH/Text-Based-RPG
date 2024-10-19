@@ -51,21 +51,50 @@ int main() {
 		2
 	);
 	
-	std::unique_ptr<HealthPotion> health = std::make_unique<HealthPotion>(
-		"Health Potion",
+	std::unique_ptr<HealthPotion> health_25 = std::make_unique<HealthPotion>(
+		"Health Potion (25%)",
 		"This will restore your health.",
 		0.25F,
+		2
+	);
+	
+	std::unique_ptr<HealthPotion> health_50 = std::make_unique<HealthPotion>(
+		"Health Potion (50%)",
+		"This will restore your health.",
+		0.50F,
+		2
+	);
+	std::unique_ptr<HealthPotion> health_100 = std::make_unique<HealthPotion>(
+		"Health Potion (100%)",
+		"This will restore your health.",
+		1.0F,
 		2
 	);
 
 	player->printStats();
 
-	player->addItemToInventory(std::move(health));
-	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
-	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
-	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
+	player->addItemToInventory(std::move(health_25));
+	player->addItemToInventory(std::move(health_50));
+	player->addItemToInventory(std::move(health_100));
+
 	player->TakeDamage(player->getHealth() * 0.25F);
 	player->printStats();
+
+	player->UsePotion(player->getItemFromInventory("Health Potion (25%)"), *player);
+	player->printStats();
+
+	player->TakeDamage(player->getHealth() * 0.50F);
+	player->printStats();
+
+	player->UsePotion(player->getItemFromInventory("Health Potion (50%)"), *player);
+	player->printStats();
+
+	player->TakeDamage(player->getHealth() * 1.0F);
+	player->printStats();
+
+	player->UsePotion(player->getItemFromInventory("Health Potion (100%)"), *player);
+	player->printStats();
+
 	player->addItemToInventory(std::move(dagger));
 	player->addItemToInventory(std::move(mana));
 
