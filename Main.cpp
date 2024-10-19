@@ -34,8 +34,7 @@ int main() {
 		std::println("");
 	} while ((choice < 49 or choice > 51) or choice != 'q');*/
 
-	std::unique_ptr<Player> player = std::make_unique<Mage>();
-	std::cout << player.get() << std::endl;
+	std::unique_ptr<Mage> player = std::make_unique<Mage>();
 
 	std::unique_ptr<Weapon> dagger = std::make_unique<Dagger>(
 		"Fire Dagger",
@@ -45,31 +44,35 @@ int main() {
 	);
 	
 
-	std::unique_ptr<Potion> mana = std::make_unique<ManaPotion>(
+	std::unique_ptr<ManaPotion> mana = std::make_unique<ManaPotion>(
 		"Mana Potion",
 		"This will restore your mana.",
 		0.25F,
-		2,
-		*player
+		2
 	);
 	
-	std::unique_ptr<Potion> health = std::make_unique<HealthPotion>(
+	std::unique_ptr<HealthPotion> health = std::make_unique<HealthPotion>(
 		"Health Potion",
 		"This will restore your health.",
 		0.25F,
-		2,
-		*player
+		2
 	);
 
 	player->printStats();
 
+	player->addItemToInventory(std::move(health));
+	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
+	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
+	player->UsePotion(player->getItemFromInventory("Health Potion"), *player);
 	player->TakeDamage(player->getHealth() * 0.25F);
 	player->printStats();
-	player->addItemToInventory(std::move(health));
 	player->addItemToInventory(std::move(dagger));
 	player->addItemToInventory(std::move(mana));
 
 	player->printStats();
+
+	player->listItemsInInventory();
+
 
 	(void)_getch();
 }

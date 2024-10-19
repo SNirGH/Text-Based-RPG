@@ -1,24 +1,18 @@
 #pragma once
 
 #include "Potion.hpp"
-#include "../Player/Player.hpp"
 
 class HealthPotion final : public Potion {
 public:
-	HealthPotion(const std::string& name, const std::string& description, float percent, uint8_t amount, Player& player)
-		: Potion(name, description, percent, amount, PotionEffect::Health), player(player) {}
+	HealthPotion(const std::string& name, const std::string& description, float percent, uint8_t amount)
+		: Potion(name, description, percent, amount, PotionEffect::Health) {}
 
-	void Use() override {
-		if (!player.findItemInInventory(name)) {
+	void Use(Player& player) {
+		if (amount == 0) {
 			std::println("You have no more Health Potions");
 			return;
 		}
 		player.RestoreHealth(percent);
 		amount -= 1;
-		if (amount <= 0)
-			player.removeItemFromInventory(name);
 	}
-
-private:
-	Player& player;
 };

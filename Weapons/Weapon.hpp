@@ -16,7 +16,9 @@ public:
 		: Item(name, description, ItemType::Weapon),
 		  baseDamage(baseDamage), currentDamage(baseDamage), debuff(debuff), weaponType(weaponType) {}
 	
-	std::string GetWeaponType() {
+	
+	WeaponType GetWeaponType() const { return weaponType; }
+	std::string GetWeaponTypeString() {
 		switch (this->weaponType) {
 		case WeaponType::Dagger:
 			return "Dagger";
@@ -31,7 +33,7 @@ public:
 		std::println("Name: {}", this->name);
 		std::println("Description: {}", this->description);
 		std::println("Base Damage: {}", this->baseDamage);
-		std::println("Weapon Type: {}", this->GetWeaponType());
+		std::println("Weapon Type: {}", this->GetWeaponTypeString());
 	}
 	std::string GetWeaponDebuff(Effects debuff);
 protected:

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "../Inventory/Inventory.hpp"
+#include "../Potions/Potion.hpp"
 #include "../Status Effects/StatusEffects.hpp"
 
 enum class PlayerType : uint8_t { Assassin, Mage, Warrior };
@@ -15,7 +16,7 @@ public:
 
 	virtual void printDescription() const = 0;
 
-	uint8_t getHealth() const { return currentHP; }
+	uint16_t getHealth() const { return currentHP; }
 	float getMana() const { return currentMP; }
 	uint8_t getLevel() const { return level; }
 	void LevelUp() { ++level; }
@@ -42,6 +43,10 @@ public:
 		inventory->removeFromInventory(itemName);
 	}
 
+	std::unique_ptr<Item>& getItemFromInventory(const std::string& itemName) {
+		return inventory->getItem(itemName);
+	}
+
 	void listItemsInInventory() const {
 		inventory->listItems();
 	}
@@ -66,10 +71,20 @@ public:
 		currentMP = (currentMP >= amount) ? (currentMP - amount) : 0;
 	}
 
+	void UsePotion(std::unique_ptr<Item>& item, Player& player) {
+		if (item->getItemType() == ItemType::Potion) {
+			Potion* potion = dynamic_cast<Potion*>(item.get());
+			if (potion) {
+				potion->Use(player);
+			}
+		}
+	}
+
 	virtual ~Player() = default;
 
 protected:
-	uint8_t currentHP, maxHP, currentXP, maxXP, level;
+	uint16_t currentHP, maxHP, currentXP, maxXP;
+	uint8_t level;
 	float currentMP, maxMP;
 	PlayerType type;
 
