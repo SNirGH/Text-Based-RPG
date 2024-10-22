@@ -2,11 +2,8 @@
 
 #include "Player.hpp"
 
-class Mage final : public Player {
+class Mage : public Player {
 public:
-	Mage() : Player(100, 100, 0, 1, PlayerType::Mage) {}
-
-	void printDescription() const override {
-		std::println("This is a mage.");
-	}
+	Mage(uint16_t currentHP, uint16_t currentMP)
+		: Player(currentHP, currentMP, PlayerType::Mage) {}
 };

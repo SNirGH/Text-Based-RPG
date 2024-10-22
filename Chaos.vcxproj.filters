@@ -21,13 +21,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapons\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,60 +1,42 @@
 #pragma once
 
-#include <memory>
-
-#include "../Inventory/Inventory.hpp"
 #include "../Potions/Potion.hpp"
-#include "../Status Effects/StatusEffects.hpp"
+#include "../Inventory/Inventory.hpp"
 
 enum class PlayerType : uint8_t { Assassin, Mage, Warrior };
 
 class Player {
 public:
-	Player(uint8_t hp, uint8_t mp, uint8_t xp, uint8_t level, PlayerType type)
-		: currentHP(hp), maxHP(hp), currentMP(mp), maxMP(mp),
-		  currentXP(xp), maxXP(100), level(level), type(type) {}
+	Player(uint16_t currentHP, uint16_t currentMP, PlayerType playerType)
+		: currentHP(currentHP), maxHP(currentHP), currentMP(currentMP), maxMP(currentMP),
+		currentXP(0U), maxXP(100U), level(1U), playerType(playerType) {}
 
-	virtual void printDescription() const = 0;
+	uint16_t GetHealth() const { return currentHP; }
+	uint16_t GetMana() const { return currentMP; }
+	uint16_t GetXP() const { return currentXP; }
+	uint8_t GetLevel() const { return level; }
+	PlayerType GetPlayerType() const { return playerType; }
 
-	uint16_t getHealth() const { return currentHP; }
-	float getMana() const { return currentMP; }
-	uint8_t getLevel() const { return level; }
-	void LevelUp() { ++level; }
-
-	std::string getType() const;
-
-	void printStats() const {
-		std::println("\nPlayer is a: {}", getType());
-		std::println("Health: {}/{}", currentHP, maxHP);
-		std::println("Mana: {}", currentMP);
-		std::println("XP: {}", currentXP);
-		std::println("Level: {}", level);
+	void GainXP(uint16_t amount) {
+		currentXP = currentXP + amount;
+		while (currentXP >= maxXP)
+			LevelUp();
 	}
 
-	void addItemToInventory(std::unique_ptr<Item> item) {
-		inventory->addToInventory(std::move(item));
+	void LevelUp() {
+		++level;
+
+		maxHP = maxHP + 100U;
+		currentHP = maxHP;
+		maxMP = maxMP + 100U;
+		currentMP = maxMP;
+
+		currentXP = currentXP - maxXP;
+		maxXP += 100U;
 	}
 
-	bool findItemInInventory(const std::string& itemName) {
-		return inventory->findItemInInventory(itemName);
-	}
-
-	void removeItemFromInventory(const std::string& itemName) {
-		inventory->removeFromInventory(itemName);
-	}
-
-	std::unique_ptr<Item>& getItemFromInventory(const std::string& itemName) {
-		return inventory->getItem(itemName);
-	}
-
-	void listItemsInInventory() const {
-		inventory->listItems();
-	}
-
-	template<class T>
-		requires std::is_arithmetic<T>::value
-	void Restore(float percent, T& current, T max) {
-		current = std::min<T>(current + (max * percent), max);
+	void Restore(float percent, uint16_t current, uint16_t max) {
+		current = std::min<uint16_t>(current + (max * percent), max);
 	}
 	void RestoreHealth(float percent) {
 		Restore(percent, currentHP, maxHP);
@@ -63,31 +45,38 @@ public:
 		Restore(percent, currentMP, maxMP);
 	}
 
-	void TakeDamage(uint8_t amount) {
+	void AddItemToInventory(std::unique_ptr<Item> item) {
+		inventory->AddItemToInventory(std::move(item));
+	}
+
+	void RemoveItemFromInventory(uint8_t id) {
+		inventory->RemoveItemFromInventory(id);
+	}
+
+	void displayInventory() {
+		inventory->displayInventory();
+	}
+
+	void TakeDamage(uint16_t amount) {
 		currentHP = (currentHP >= amount) ? (currentHP - amount) : 0;
 	}
 
-	void ConsumeMana(uint8_t amount) {
+	void ConsumeMana(uint16_t amount) {
 		currentMP = (currentMP >= amount) ? (currentMP - amount) : 0;
 	}
-
-	void UsePotion(std::unique_ptr<Item>& item, Player& player) {
-		if (item->getItemType() == ItemType::Potion) {
-			Potion* potion = dynamic_cast<Potion*>(item.get());
-			if (potion) {
-				potion->Use(player);
-			}
-		}
+	
+	void printStats() const {
+		std::println("\nPlayer is a: {}", (uint8_t)GetPlayerType());
+		std::println("Health: {}/{}", currentHP, maxHP);
+		std::println("Mana: {}/{}", currentMP, maxMP);
+		std::println("XP: {}/{}", currentXP, maxXP);
+		std::println("Level: {}", level);
 	}
 
 	virtual ~Player() = default;
-
 protected:
-	uint16_t currentHP, maxHP, currentXP, maxXP;
 	uint8_t level;
-	float currentMP, maxMP;
-	PlayerType type;
-
+	uint16_t currentHP, maxHP, currentMP, maxMP, currentXP, maxXP;
+	PlayerType playerType;
 	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
-	std::unique_ptr<StatusEffects> debuffs = std::make_unique<StatusEffects>();
 };

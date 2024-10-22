@@ -2,8 +2,12 @@
 
 #include "Weapon.hpp"
 
-class Dagger final : public Weapon {
+class Dagger : public Weapon {
 public:
-	Dagger(const std::string& name, const std::string& description, uint8_t baseDamage, Effects effect)
-		: Weapon(name, description, baseDamage, effect, WeaponType::Dagger) {}
+	Dagger(const std::string& name, const std::string& description, WeaponDebuffs debuff)
+		: Weapon(name, description, WeaponType::Dagger), debuff(debuff) {}
+
+	std::string GetWeaponTypeString() const override { return "Dagger"; }
+private:
+	WeaponDebuffs debuff;
 };

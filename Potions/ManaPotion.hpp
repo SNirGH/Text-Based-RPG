@@ -2,18 +2,35 @@
 
 #include "Potion.hpp"
 
-class ManaPotion final : public Potion {
+class ManaPotion : public Potion {
 public:
-	ManaPotion(const std::string& name, const std::string& description, float percent, uint8_t amount)
-		: Potion(name, description, percent, amount, PotionEffect::Mana) {}
+	ManaPotion(const std::string& name, const std::string& description, float percent)
+		: Potion(name, description, percent) {}
 
-	void Use(Player& player) {
-		if (amount == 0) {
-			std::println("You have no more Mana Potions");
-			return;
-		}
+	void Use(Player& player) override {
+		if (amount == 0) return;
+
 		player.RestoreMana(percent);
-		amount -= 1;
+		RemovePotion();
 	}
+
+	virtual ~ManaPotion() = default;
 };
 
+class SmallManaPotion : public ManaPotion {
+public:
+	SmallManaPotion()
+		: ManaPotion("Small Mana Potion", "Restores a small amount of mana.", 0.25F) {}
+};
+
+class MediumManaPotion : public ManaPotion {
+public:
+	MediumManaPotion()
+		: ManaPotion("Medium Mana Potion", "Restores a medium amount of mana.", 0.50F) {}
+};
+
+class LargeManaPotion : public ManaPotion {
+public:
+	LargeManaPotion()
+		: ManaPotion("Large Mana Potion", "Restores a large amount of mana.", 0.75F) {}
+};
