@@ -1,6 +1,8 @@
 #pragma once
 
 #include <map>
+#include <vector>
+#include <algorithm>
 
 #include "Item.hpp"
 
@@ -24,9 +26,10 @@ public:
 	void AddItemToInventory(std::unique_ptr<Item> item) {
 		uint8_t newId;
 		if (!available_numbers.empty()) {
-			std::map<uint8_t, uint8_t>::iterator it = available_numbers.begin();
-			newId = it->first;
-			available_numbers.erase(it);
+			std::sort(available_numbers.begin(), available_numbers.end());
+			uint8_t available = available_numbers[0];
+			newId = available;
+			available_numbers.erase(available_numbers.begin());
 		}
 		else {
 			newId = getNextId();
@@ -36,7 +39,7 @@ public:
 	}
 
 	void RemoveItemFromInventory(uint8_t id) {
-		available_numbers[id] = id;
+		available_numbers.push_back(id);
 		items.erase(id);
 	}
 
@@ -50,7 +53,7 @@ public:
 
 private:
 	std::map<uint8_t, std::unique_ptr<Item>> items;
-	std::map<uint8_t, uint8_t> available_numbers;
+	std::vector<uint8_t> available_numbers;
 	static uint8_t getNextId() {
 		return currentId++;
 	}

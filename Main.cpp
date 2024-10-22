@@ -57,7 +57,9 @@ int main() {
 
 	std::println();
 
-	player->RemoveItemFromInventory(2);
+	player->RemoveItemFromInventory(5);
+	player->RemoveItemFromInventory(3);
+	player->RemoveItemFromInventory(1);
 	player->AddItemToInventory(std::move(smanaPotion));
 	player->AddItemToInventory(std::move(shealthPotion));
 	player->displayInventory();
