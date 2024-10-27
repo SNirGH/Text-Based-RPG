@@ -7,22 +7,63 @@ enum class WeaponType : uint8_t { Dagger, Staff, Sword };
 
 class Weapon : public Item {
 public:
-	Weapon(const std::string& name, const std::string& description, WeaponType weaponType)
-		: Item(name, description, ItemType::Weapon), weaponType(weaponType) {}
+  Weapon(const std::string &name, const std::string &description,
+         uint16_t baseDamage, WeaponDebuffs debuff, WeaponType weaponType)
+      : Item(name, description, ItemType::Weapon), baseDamage(baseDamage),
+        debuff(debuff), weaponType(weaponType) {}
 
-	std::string GetTypeString() const override { return "Weapon"; }
+  std::string GetTypeString() const override { return "Weapon"; }
 
-	virtual std::string GetWeaponTypeString() const = 0;
+  void printBaseDamage() { std::println("Base Weapon Damage: {}", baseDamage); }
+  void printWeaponDebuff() {
+    std::print("Weapon Debuff: ");
+    switch (debuff) {
+    case WeaponDebuffs::Stunned:
+      std::println("Stunned");
+      break;
+    case WeaponDebuffs::Fire:
+      std::println("Fire");
+      break;
+    case WeaponDebuffs::Confused:
+      std::println("Confused");
+      break;
+    case WeaponDebuffs::Poisoned:
+      std::println("Poison");
+      break;
+    default:
+      std::println("None");
+      break;
+    }
+  }
 
-	/* TEMPORARY FUNCTION FOR DEBUGGING -- DELETE */
-	void PrintWeaponInfo() {
-		std::println("Name: {}", name);
-		std::println("Description: {}", description);
-		std::println("Item Type String: {}", GetTypeString());
-		std::println("Weapon Type String: {}", GetWeaponTypeString());
-	}
+  void printWeaponType() {
+    std::print("Weapon Type: ");
+    switch (weaponType) {
+    case WeaponType::Dagger:
+      std::println("Dagger");
+      break;
+    case WeaponType::Staff:
+      std::println("Staff");
+      break;
+    case WeaponType::Sword:
+      std::println("Sword");
+      break;
+    }
+  }
 
-	virtual ~Weapon() = default;
+  void printStats() override {
+    printName();
+    printDescription();
+    printBaseDamage();
+    printWeaponDebuff();
+    printWeaponType();
+    std::println("\n");
+  }
+
+  virtual ~Weapon() = default;
+
 protected:
-	WeaponType weaponType;
+  uint16_t baseDamage;
+  WeaponDebuffs debuff;
+  WeaponType weaponType;
 };

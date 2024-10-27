@@ -18,7 +18,7 @@ public:
 	PlayerType GetPlayerType() const { return playerType; }
 
 	void GainXP(uint16_t amount) {
-		currentXP = currentXP + amount;
+		currentXP += amount;
 		while (currentXP >= maxXP)
 			LevelUp();
 	}
@@ -64,7 +64,7 @@ public:
 	void ConsumeMana(uint16_t amount) {
 		currentMP = (currentMP >= amount) ? (currentMP - amount) : 0;
 	}
-	
+
 	void printStats() const {
 		std::println("\nPlayer is a: {}", (uint8_t)GetPlayerType());
 		std::println("Health: {}/{}", currentHP, maxHP);
@@ -75,8 +75,8 @@ public:
 
 	virtual ~Player() = default;
 protected:
-	uint8_t level;
 	uint16_t currentHP, maxHP, currentMP, maxMP, currentXP, maxXP;
+	uint8_t level;
 	PlayerType playerType;
 	std::unique_ptr<Inventory> inventory = std::make_unique<Inventory>();
 };

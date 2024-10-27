@@ -1,74 +1,73 @@
-#include <iostream>
-#include <conio.h>
+#include <chrono>
+#include <print>
+#include <thread>
 
-#include "Potions/PotionFactory.hpp"
-#include "Weapons/WeaponFactory.hpp"
+#include "Chest/Chest.hpp"
+#include "Player/Player.hpp"
 #include "Player/PlayerFactory.hpp"
-#include "Inventory/Inventory.hpp"
+
+void sleep_random_range(int min_ms, int max_ms) {
+  static std::mt19937 rng(std::random_device{}());
+  std::uniform_int_distribution<int> dist(min_ms, max_ms);
+  int sleep_time = dist(rng);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time));
+}
+
+void typewriter(const std::string &msg) {
+  for (size_t i = 0; msg[i] != '\0'; i++) {
+    if (msg[i] == ' ') {
+      sleep_random_range(70, 200);
+    } else {
+      sleep_random_range(50, 100);
+    }
+
+    std::print("{}", msg[i]);
+    fflush(stdout);
+  }
+
+  std::println();
+}
 
 int main() {
-	/*char choice;
+  /*char choice;
 
-	std::unique_ptr<Player> player;
+  std::unique_ptr<Player> player;
 
-	do {
-		std::print("Which class would you like: ");
-		choice = _getch();
+  do {
+          std::print("Which class would you like: ");
+          choice = _getch();
 
-		switch (choice) {
-		case '1':
-			player = std::make_unique<Assassin>();
-			break;
-		case '2':
-			player = std::make_unique<Mage>();
-			break;
-		case '3':
-			player = std::make_unique<Warrior>();
-			break;
-		default:
-			std::println("\033[31mInvalid value\033[0m");
-			break;
-		}
-		player->printStats();
-		player->printDescription();
-		std::println("");
-	} while ((choice < 49 or choice > 51) or choice != 'q');*/
+          switch (choice) {
+          case '1':
+                  player = std::make_unique<Assassin>();
+                  break;
+          case '2':
+                  player = std::make_unique<Mage>();
+                  break;
+          case '3':
+                  player = std::make_unique<Warrior>();
+                  break;
+          default:
+                  std::println("\033[31mInvalid value\033[0m");
+                  break;
+          }
+          player->printStats();
+          player->printDescription();
+          std::println("");
+  } while ((choice < 49 or choice > 51) or choice != 'q');*/
 
-	WeaponFactory weaponFactory;
-	PotionFactory potionFactory;
+  auto player = PlayerFactory::createMage();
+  Chest chest;
 
-	std::unique_ptr<Weapon> dagger = weaponFactory.createDagger("\033[38;2;13;130;240mStun Dagger\033[0m", "Will stun ya", WeaponDebuffs::Stunned);
-	std::unique_ptr<Weapon> sword = weaponFactory.createSword("Poison Sword", "Very poisonous sword", WeaponDebuffs::Poisoned);
-	std::unique_ptr<Weapon> staff = weaponFactory.createStaff("Fire Staff", "Shoots fireballs", WeaponDebuffs::Fire);
+  while (!chest.isEmpty())
+    player->AddItemToInventory(chest.Open());
 
-	std::unique_ptr<HealthPotion> healthPotion = potionFactory.createMediumHealthPotion();
-	std::unique_ptr<HealthPotion> shealthPotion = potionFactory.createSmallHealthPotion();
-	std::unique_ptr<ManaPotion> manaPotion = potionFactory.createMediumManaPotion();
-	std::unique_ptr<ManaPotion> smanaPotion = potionFactory.createSmallManaPotion();
+  std::println("The chest ran out of items.");
+  player->displayInventory();
 
-	auto player = PlayerFactory::createMage();
-
-	player->AddItemToInventory(std::move(dagger));
-	player->AddItemToInventory(std::move(sword));
-	player->AddItemToInventory(std::move(staff));
-	player->AddItemToInventory(std::move(healthPotion));
-	player->AddItemToInventory(std::move(manaPotion));
-	player->displayInventory();
-
-	std::println();
-
-	player->RemoveItemFromInventory(5);
-	player->RemoveItemFromInventory(3);
-	player->RemoveItemFromInventory(1);
-	player->AddItemToInventory(std::move(smanaPotion));
-	player->AddItemToInventory(std::move(shealthPotion));
-	player->displayInventory();
-
-	std::println();
-	player->printStats();
-	player->GainXP(5000);
-	player->printStats();
-
-
-	(void)_getch();
+  std::println();
+  player->printStats();
+  player->GainXP(6750);
+  player->printStats();
 }
